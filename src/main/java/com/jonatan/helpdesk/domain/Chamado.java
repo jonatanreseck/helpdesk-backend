@@ -1,35 +1,59 @@
 package com.jonatan.helpdesk.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jonatan.helpdesk.domain.enums.Prioridade;
 import com.jonatan.helpdesk.domain.enums.Status;
 
-public class Chamado {
+@Entity
+public class Chamado implements Serializable {
+    private static final long serialVersionUID = 1L;
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataAbertura = LocalDate.now();
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamento;
+    
     private Prioridade prioridade;
     private Status status;
     private String titulo;
     private String obeservacoes;
+    
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
-    private Cliente Cliente;
+    
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
     
     public Chamado(){
         super();
     }
 
     public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String obeservacoes,
-            Tecnico tecnico, com.jonatan.helpdesk.domain.Cliente cliente) {
+            Tecnico tecnico, Cliente cliente) {
         this.id = id;
         this.prioridade = prioridade;
         this.status = status;
         this.titulo = titulo;
         this.obeservacoes = obeservacoes;
         this.tecnico = tecnico;
-        Cliente = cliente;
+        this.cliente = cliente;
     }
 
     public Integer getId() {
@@ -97,11 +121,11 @@ public class Chamado {
     }
 
     public Cliente getCliente() {
-        return Cliente;
+        return cliente;
     }
 
     public void setCliente(Cliente cliente) {
-        Cliente = cliente;
+        this.cliente = cliente;
     }
 
     @Override
