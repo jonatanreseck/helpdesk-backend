@@ -12,6 +12,7 @@ import com.jonatan.helpdesk.domain.enums.Perfil;
 public class Cliente extends Pessoa {
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Chamado> chamados = new ArrayList<>();
 
