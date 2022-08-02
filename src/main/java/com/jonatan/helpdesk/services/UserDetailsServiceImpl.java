@@ -1,4 +1,4 @@
-package com.jonatan.helpdesk.security;
+package com.jonatan.helpdesk.services;
 
 import java.util.Optional;
 
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.jonatan.helpdesk.domain.Pessoa;
 import com.jonatan.helpdesk.repositories.PessoaRepository;
+import com.jonatan.helpdesk.security.UserSS;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
